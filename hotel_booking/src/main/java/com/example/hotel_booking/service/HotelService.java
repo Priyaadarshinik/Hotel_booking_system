@@ -15,8 +15,10 @@ public class HotelService {
     public Hotel saveHotel(Hotel hotel){
         return hotelRepo.save(hotel);
     }
-
     public List<Hotel> getHotels(){
         return hotelRepo.findAll();
+    }
+    public Hotel getHotel(Long id) {
+        return hotelRepo.findById(id).orElseThrow(() -> new RuntimeException("Hotel not found with id: " + id));
     }
 }
