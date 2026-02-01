@@ -23,7 +23,7 @@ public class HotelController {
         return hotelService.getHotels();
     }
     @GetMapping("/{id}")
-    public Hotel one(@PathVariable Long id) {
+    public Hotel getHotelById(@PathVariable Long id) {
         return hotelService.getHotel(id);
     }
 }
