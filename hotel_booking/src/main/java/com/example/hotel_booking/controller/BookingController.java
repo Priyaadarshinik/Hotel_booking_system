@@ -2,16 +2,16 @@ package com.example.hotel_booking.controller;
 
 import com.example.hotel_booking.model.Booking;
 import com.example.hotel_booking.service.BookingService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
 @RequestMapping("/booking")
 public class BookingController {
-    @Autowired
-    private BookingService bookingService;
-
+    private final BookingService bookingService;
+    public  BookingController(BookingService bookingService){
+        this.bookingService = bookingService;
+    }
     @PostMapping("/add")
     public Booking addBooking(@RequestBody Booking booking) {
         return bookingService.createBooking(booking);

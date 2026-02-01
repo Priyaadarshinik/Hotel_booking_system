@@ -1,9 +1,6 @@
 package com.example.hotel_booking.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +15,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Review {
     @Id
+    @GeneratedValue
     private Long reviewId;
     private String review;
     private int ratings;

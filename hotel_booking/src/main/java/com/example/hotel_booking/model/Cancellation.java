@@ -1,9 +1,6 @@
 package com.example.hotel_booking.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Cancellation {
     @Id
+    @GeneratedValue
     private Long cancellationId;
     private String reason;
     private double cancellationFee;

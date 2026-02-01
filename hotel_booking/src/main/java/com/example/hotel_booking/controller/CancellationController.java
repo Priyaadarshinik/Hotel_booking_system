@@ -2,7 +2,6 @@ package com.example.hotel_booking.controller;
 
 import com.example.hotel_booking.model.Cancellation;
 import com.example.hotel_booking.service.CancellationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,8 +10,10 @@ import java.util.List;
 @RequestMapping("/cancellation")
 public class CancellationController {
 
-    @Autowired
-    private CancellationService cancellationService;
+    private final CancellationService cancellationService;
+    public CancellationController(CancellationService cancellationService){
+        this.cancellationService = cancellationService;
+    }
     @PostMapping("/add")
     public Cancellation createCancellation(@RequestBody Cancellation cancellation) {
         return cancellationService.save(cancellation);

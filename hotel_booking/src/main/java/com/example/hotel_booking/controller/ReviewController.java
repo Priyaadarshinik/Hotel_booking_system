@@ -10,9 +10,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/review")
 public class ReviewController {
-    @Autowired
-    private ReviewService reviewService;
-
+    private final ReviewService reviewService;
+    public ReviewController(ReviewService reviewService){
+        this.reviewService= reviewService;
+    }
     @PostMapping("/add")
     public Review addReview(@RequestBody Review review) {
         return reviewService.save(review);
