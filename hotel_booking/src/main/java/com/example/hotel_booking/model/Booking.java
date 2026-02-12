@@ -6,28 +6,47 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
+
+
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Booking {
+    public enum BookingStatus {
+        PENDING,
+        CONFIRMED,
+        CANCELLED
+    }
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookingId;
-    private String checkIn;
-    private String checkOut;
-    private String bookingStatus;
+
+    private LocalDate checkIn;
+
+    private LocalDate checkOut;
+
+    @Enumerated(EnumType.STRING)
+    private BookingStatus bookingStatus;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="userId")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name="hotel_id")
+    @JoinColumn(name="hotelId")
     private Hotel hotel;
 
     @ManyToOne
-    @JoinColumn(name="room_id")
+    @JoinColumn(name="roomId")
     private Room room;
+
+    @OneToOne
+    @JoinColumn(name="paymentId")
+    private Payment payment;
 }

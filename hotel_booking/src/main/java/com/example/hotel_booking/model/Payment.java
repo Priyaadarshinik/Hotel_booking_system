@@ -17,13 +17,13 @@ public class Payment {
     @Id
     @GeneratedValue
     private Long paymentId;
-    private double totalPrice;
+    private Double totalPrice;
     private String paymentMethod;
     private LocalDateTime paymentDate;
     private String transactionId;
     private String paymentStatus;
     // FK → Booking
     @OneToOne
-    @JoinColumn(name = "booking_id")
+    @JoinColumn(name = "bookingId")
     private Booking booking;
 }

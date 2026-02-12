@@ -22,6 +22,6 @@ public class Hotel {
     private String country;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
-    private User host;
+    @JoinColumn(name="userId")
+    private User user;
 }
