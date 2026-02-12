@@ -24,6 +24,6 @@ public class Payment {
     private String paymentStatus;
     // FK → Booking
     @OneToOne
-    @JoinColumn(name = "booking_id")
+    @JoinColumn(name = "bookingId")
     private Booking booking;
 }

@@ -18,16 +18,16 @@ public class Review {
     @GeneratedValue
     private Long reviewId;
     private String review;
-    private int ratings;
+    private Integer ratings;
     private LocalDate reviewDate;
 
     // FK → Hotel
     @ManyToOne
-    @JoinColumn(name = "hotel_id")
+    @JoinColumn(name = "hotelId")
     private Hotel hotel;
 
     // FK → User
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "userId")
     private User user;
 }
