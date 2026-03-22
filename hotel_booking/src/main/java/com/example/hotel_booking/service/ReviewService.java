@@ -33,13 +33,14 @@ public class ReviewService {
 
         return saved;
     }
-    private void updateHotelRating(Long hotelId){
+    public void updateHotelRating(Long hotelId){
 
         List<Review> reviews = reviewRepo.findAll();
         List<Review> reviewOfHotel = new ArrayList<>();
         for(Review review : reviews){
             if (Objects.equals(review.getHotel().getHotelId(), hotelId)) reviewOfHotel.add(review);
         }
+        System.out.println("review size : " + reviewOfHotel.size());
         double avg = reviewOfHotel.stream()
                 .mapToInt(Review::getRatings)
                 .average()
@@ -52,7 +53,6 @@ public class ReviewService {
 
         hotelRepo.save(hotel);
     }
-
     public List<Review> getAll() {
         return reviewRepo.findAll();
     }
