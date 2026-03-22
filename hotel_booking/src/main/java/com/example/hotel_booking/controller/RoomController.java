@@ -46,7 +46,7 @@ public class RoomController {
             @PathVariable Long id,
             @RequestBody Room room) {
 
-        return ResponseEntity.ok(roomService.updateRoom(id, room));
+        return ResponseEntity.ok(RoomService.updateRoom(id, room));
     }
 
     @PatchMapping("/{id}")

@@ -12,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Hotel {
+
     @Id
     @GeneratedValue
     private Long hotelId;
@@ -19,8 +20,7 @@ public class Hotel {
     private String description;
     private String address;
     private String city;
-    private String country;
-
+    private Double hotelRating;
     @ManyToOne
     @JoinColumn(name="userId")
     private User user;

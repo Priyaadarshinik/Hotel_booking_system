@@ -1,5 +1,6 @@
 package com.example.hotel_booking.controller;
 
+import com.example.hotel_booking.model.Hotel;
 import com.example.hotel_booking.model.Review;
 import com.example.hotel_booking.service.ReviewService;
 import org.springframework.http.ResponseEntity;

@@ -46,7 +46,4 @@ public class Booking {
     @JoinColumn(name="roomId")
     private Room room;
 
-    @OneToOne
-    @JoinColumn(name="payment_id")
-    private Payment payment;
 }

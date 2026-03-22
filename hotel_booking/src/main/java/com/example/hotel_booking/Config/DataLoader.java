@@ -22,7 +22,7 @@ public class DataLoader {
 
     @PostConstruct
     public void loadUsers() {
-        if (repo.findByUsername("admin").isEmpty()) {
+        if (repo.findByEmail("admin@example.com").isEmpty()) {
             User admin = new User();
             admin.setUsername("admin");
             admin.setEmail("admin@example.com");
@@ -31,7 +31,7 @@ public class DataLoader {
             repo.save(admin);
         }
 
-        if (repo.findByUsername("user").isEmpty()) {
+        if (repo.findByEmail("user@example.com").isEmpty()) {
             User user = new User();
             user.setUsername("user");
             user.setEmail("user@example.com");

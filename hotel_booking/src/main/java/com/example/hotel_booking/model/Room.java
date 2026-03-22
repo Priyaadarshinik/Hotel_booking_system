@@ -12,22 +12,19 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Room {
-    public enum RoomStatus {
-        AVAILABLE,
-        BOOKED,
-        MAINTENANCE
+    public enum RoomType {
+        SINGLE,
+        DOUBLE,
+        PREMIUM
     }
     @Id
     @GeneratedValue
     private Long roomId;
-
-    private Long roomNumber;
-    private String roomType;
     @Enumerated(EnumType.STRING)
-    private RoomStatus availabilityStatus;
+    private RoomType roomType;
     private Integer maxGuest;
     private Double price;
-
+    private Integer quantity;
     @ManyToOne
     @JoinColumn(name="hotelId")
     private Hotel hotel;
