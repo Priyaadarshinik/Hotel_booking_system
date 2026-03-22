@@ -23,7 +23,6 @@ public class HotelService {
 
     public Hotel saveHotel(Hotel hotel){
 
-        // 🔥 get logged-in username from JWT
         String username = SecurityContextHolder
                 .getContext()
                 .getAuthentication()
@@ -31,11 +30,9 @@ public class HotelService {
 
         System.out.println("LOGGED USER: " + username); // debug
 
-        // 🔥 fetch user from DB
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findByEmail(username)
+                .orElseThrow(() ->  new ResourceNotFoundException("User not found"));
 
-        // 🔥 assign user to hotel
         hotel.setUser(user);
 
         return hotelRepo.save(hotel);
@@ -59,8 +56,6 @@ public class HotelService {
         existing.setDescription(updatedHotel.getDescription());
         existing.setAddress(updatedHotel.getAddress());
         existing.setCity(updatedHotel.getCity());
-        existing.setCountry(updatedHotel.getCountry());
-
         return hotelRepo.save(existing);
     }
 
@@ -82,10 +77,6 @@ public class HotelService {
 
         if(updatedHotel.getCity() != null){
             existing.setCity(updatedHotel.getCity());
-        }
-
-        if(updatedHotel.getCountry() != null){
-            existing.setCountry(updatedHotel.getCountry());
         }
 
         return hotelRepo.save(existing);

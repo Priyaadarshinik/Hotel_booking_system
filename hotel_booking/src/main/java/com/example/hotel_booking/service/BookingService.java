@@ -4,7 +4,9 @@ package com.example.hotel_booking.service;
 import com.example.hotel_booking.handler.BadRequestException;
 import com.example.hotel_booking.handler.ResourceNotFoundException;
 import com.example.hotel_booking.model.Booking;
+import com.example.hotel_booking.model.Room;
 import com.example.hotel_booking.repository.BookingRepository;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,15 +21,19 @@ public class BookingService {
         this.bookingRepo = bookingRepo;
     }
 
-    public Booking createBooking(Booking booking) {
+    public Booking createBooking(Booking newBooking) {
 
-        validateDates(booking.getCheckIn(), booking.getCheckOut());
+        validateDates(newBooking.getCheckIn(), newBooking.getCheckOut());
+        if (RoomService.checkRoomAvailabilityStatus(newBooking.getRoom().getRoomId(), newBooking.getRoom().getQuantity()) ){
+            Room room = RoomService.getRoom(newBooking.getRoom().getRoomId());
+            Room updateQuantity = new Room(null, null,null,null, room.getQuantity() - newBooking.getRoom().getQuantity(),null);
+            RoomService.updateRoom(room.getRoomId() , updateQuantity);
+        }
+        else  throw new ResourceNotFoundException("Room is not available");
+        newBooking.setBookingStatus(Booking.BookingStatus.PENDING);
 
-        booking.setBookingStatus(Booking.BookingStatus.PENDING);
-
-        return bookingRepo.save(booking);
+        return bookingRepo.save(newBooking);
     }
-
     public List<Booking> getBookings() {
         return bookingRepo.findAll();
     }
@@ -37,57 +43,14 @@ public class BookingService {
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Booking not found with id " + id));
     }
-
-    public Booking updateBooking(Long id, Booking updatedBooking) {
-
-        Booking existing = getOne(id);
-
-        validateDates(updatedBooking.getCheckIn(), updatedBooking.getCheckOut());
-
-        existing.setCheckIn(updatedBooking.getCheckIn());
-        existing.setCheckOut(updatedBooking.getCheckOut());
-        existing.setBookingStatus(updatedBooking.getBookingStatus());
-        existing.setUser(updatedBooking.getUser());
-        existing.setHotel(updatedBooking.getHotel());
-        existing.setRoom(updatedBooking.getRoom());
-        existing.setPayment(updatedBooking.getPayment());
-
-        return bookingRepo.save(existing);
-    }
-
     public Booking updatePartial(Long id, Booking updatedBooking) {
 
         Booking existing = getOne(id);
 
-        if (updatedBooking.getCheckIn() != null) {
-            existing.setCheckIn(updatedBooking.getCheckIn());
-        }
-
-        if (updatedBooking.getCheckOut() != null) {
-            existing.setCheckOut(updatedBooking.getCheckOut());
-        }
 
         if (updatedBooking.getBookingStatus() != null) {
             existing.setBookingStatus(updatedBooking.getBookingStatus());
         }
-
-        if (updatedBooking.getUser() != null) {
-            existing.setUser(updatedBooking.getUser());
-        }
-
-        if (updatedBooking.getHotel() != null) {
-            existing.setHotel(updatedBooking.getHotel());
-        }
-
-        if (updatedBooking.getRoom() != null) {
-            existing.setRoom(updatedBooking.getRoom());
-        }
-
-        if (updatedBooking.getPayment() != null) {
-            existing.setPayment(updatedBooking.getPayment());
-        }
-
-        validateDates(existing.getCheckIn(), existing.getCheckOut());
 
         return bookingRepo.save(existing);
     }

@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 export default function Login(){
 
- const [username,setUsername] = useState("");
+ const [email,setEmail] = useState("");
  const [password,setPassword] = useState("");
 
  const navigate = useNavigate();
@@ -15,7 +15,7 @@ export default function Login(){
   try{
 
    const res = await login({
-    username: username,
+    email: email,
     password: password
    });
 
@@ -23,7 +23,7 @@ export default function Login(){
    localStorage.setItem("token", res.data.token);
 
    // TEMP role logic
-   if (username === "admin") {
+   if (email === "admin@gmail.com") {
      localStorage.setItem("role", "ADMIN");
    } else {
      localStorage.setItem("role", "USER");
@@ -46,8 +46,8 @@ export default function Login(){
 
     <input
      placeholder="Username"
-     value={username}
-     onChange={(e)=>setUsername(e.target.value)}
+     value={email}
+     onChange={(e)=>setEmail(e.target.value)}
     />
 
     <input

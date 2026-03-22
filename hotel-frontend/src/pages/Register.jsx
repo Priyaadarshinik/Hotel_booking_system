@@ -8,13 +8,14 @@ export default function Register(){
   username:"",
   email:"",
   password:"",
-  phone_no:"",
+  phoneNumber:"",
   role:"USER"
  });
 
  const navigate = useNavigate();
 
  const handleChange = (e)=>{
+  console.log(e)
   setForm({
    ...form,
    [e.target.name]: e.target.value
@@ -54,7 +55,7 @@ export default function Register(){
 
     <input name="email" placeholder="Email" onChange={handleChange}/>
 
-    <input name="phone_no" placeholder="Phone Number" onChange={handleChange}/>
+    <input name="phoneNumber" placeholder="Phone Number" onChange={handleChange}/>
 
     <input type="password" name="password" placeholder="Password" onChange={handleChange}/>
 
