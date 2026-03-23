@@ -1,4 +1,4 @@
-package com.example.hotel_booking.Security;
+package com.example.hotel_booking.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

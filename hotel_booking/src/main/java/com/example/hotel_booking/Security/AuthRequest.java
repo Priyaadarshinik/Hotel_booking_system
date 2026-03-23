@@ -1,4 +1,4 @@
-package com.example.hotel_booking.Security;
+package com.example.hotel_booking.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

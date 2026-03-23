@@ -1,6 +1,6 @@
 package com.example.hotel_booking.model;
 
-import com.example.hotel_booking.Security.Role;
+import com.example.hotel_booking.security.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

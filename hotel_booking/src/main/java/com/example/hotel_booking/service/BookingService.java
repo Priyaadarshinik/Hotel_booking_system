@@ -24,14 +24,20 @@ public class BookingService {
     public Booking createBooking(Booking newBooking) {
 
         validateDates(newBooking.getCheckIn(), newBooking.getCheckOut());
-        if (RoomService.checkRoomAvailabilityStatus(newBooking.getRoom().getRoomId(), newBooking.getRoom().getQuantity()) ){
-            Room room = RoomService.getRoom(newBooking.getRoom().getRoomId());
-            Room updateQuantity = new Room(null, null,null,null, room.getQuantity() - newBooking.getRoom().getQuantity(),null);
-            RoomService.updateRoom(room.getRoomId() , updateQuantity);
-        }
-        else  throw new ResourceNotFoundException("Room is not available");
-        newBooking.setBookingStatus(Booking.BookingStatus.PENDING);
 
+        // ✅ Fetch room from DB first — don't use client-sent quantity
+        Room room = RoomService.getRoom(newBooking.getRoom().getRoomId());
+
+        if (room.getQuantity() <= 0) {
+            throw new ResourceNotFoundException("Room is not available");
+        }
+
+        // ✅ Use updatePartial instead of updateRoom — only update quantity
+        Room quantityUpdate = new Room();
+        quantityUpdate.setQuantity(room.getQuantity() - 1);
+        RoomService.updatePartialStatic(room.getRoomId(), quantityUpdate);
+
+        newBooking.setBookingStatus(Booking.BookingStatus.PENDING);
         return bookingRepo.save(newBooking);
     }
     public List<Booking> getBookings() {
@@ -50,6 +56,12 @@ public class BookingService {
 
         if (updatedBooking.getBookingStatus() != null) {
             existing.setBookingStatus(updatedBooking.getBookingStatus());
+            if (updatedBooking.getBookingStatus().equals(Booking.BookingStatus.CANCELLED)) {
+                Room room = RoomService.getRoom(existing.getRoom().getRoomId());
+                Room quantityUpdate = new Room();
+                quantityUpdate.setQuantity(room.getQuantity() + 1);
+                RoomService.updatePartialStatic(room.getRoomId(), quantityUpdate);
+            }
         }
 
         return bookingRepo.save(existing);

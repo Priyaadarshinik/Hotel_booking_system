@@ -1,4 +1,4 @@
-package com.example.hotel_booking.Security;
+package com.example.hotel_booking.security;
 
 import com.example.hotel_booking.model.User;
 import com.example.hotel_booking.repository.UserRepository;

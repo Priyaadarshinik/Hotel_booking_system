@@ -15,6 +15,7 @@ public class Room {
     public enum RoomType {
         SINGLE,
         DOUBLE,
+        DELUXE,
         PREMIUM
     }
     @Id

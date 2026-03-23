@@ -108,9 +108,17 @@ public class RoomService {
 
         return roomRepo.save(existing);
     }
-
+    public static Room updatePartialStatic(Long id, Room updatedRoom) {
+        Room existing = getRoom(id);
+        if (updatedRoom.getQuantity() != null) existing.setQuantity(updatedRoom.getQuantity());
+        if (updatedRoom.getRoomType() != null) existing.setRoomType(updatedRoom.getRoomType());
+        if (updatedRoom.getMaxGuest() != null) existing.setMaxGuest(updatedRoom.getMaxGuest());
+        if (updatedRoom.getPrice() != null) existing.setPrice(updatedRoom.getPrice());
+        return roomRepo.save(existing);
+    }
     public void deleteRoom(Long id) {
         Room room = getRoom(id);
+        System.out.println("deleted");
         roomRepo.delete(room);
     }
 }

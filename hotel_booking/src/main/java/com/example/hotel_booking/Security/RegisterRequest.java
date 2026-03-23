@@ -1,5 +1,6 @@
-package com.example.hotel_booking.Security;
+package com.example.hotel_booking.security;
 
+import com.example.hotel_booking.security.Role;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
