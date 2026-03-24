@@ -74,16 +74,6 @@ const AdminReviews = () => {
                   "{r.review}"
                 </p>
               </div>
-
-              {/* Delete */}
-              <button 
-                onClick={() => handleDelete(r.reviewId)}
-                className="text-red-500 hover:text-red-700 bg-red-50 p-2 rounded-full transition-colors ml-4"
-                title="Delete Review"
-              >
-                <Trash2 size={20} />
-              </button>
-
             </div>
           ))}
         </div>

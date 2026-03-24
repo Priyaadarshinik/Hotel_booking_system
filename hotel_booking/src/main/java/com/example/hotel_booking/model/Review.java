@@ -27,7 +27,7 @@ public class Review {
     private Hotel hotel;
 
     // FK → User
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
     private User user;
 }

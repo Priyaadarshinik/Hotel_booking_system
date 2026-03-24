@@ -104,6 +104,9 @@ public class ReviewService {
         updateHotelRating(existing.getHotel().getHotelId());
         return reviewRepo.save(existing);
     }
+    public List<Review> getReviewsByUserId(Long userId) {
+        return reviewRepo.findByUserUserId(userId);  // Add method to ReviewRepository
+    }
 
     public void deleteReview(Long id) {
 
